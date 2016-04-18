@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,32 +33,32 @@ class User extends Authenticatable
 
     public function activities()
     {
-        return $this->hasMany('App\Activity');
+        return $this->hasMany(Activity::class);
     }
 
     public function courses()
     {
-        return $this->belongsToMany('App\Course');
+        return $this->belongsToMany(Course::class);
     }
 
     public function subjects()
     {
-        return $this->belongsToMany('App\Subject');
+        return $this->belongsToMany(Subject::class);
     }
 
-    public function tasks($)
+    public function tasks()
     {
-        return $this->belongsToMany('App\Task');
+        return $this->belongsToMany(Task::class);
     }
 
     public function isTrainee()
     {
-        return $this->role == ROLE_TRAINEE;
+        return $this->role == self::ROLE_TRAINEE;
     }
 
     public function isSupervisor()
     {
-        return $this->role == ROLE_SUPERVISOR;
+        return $this->role == self::ROLE_SUPERVISOR;
     }
 
 }
