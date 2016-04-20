@@ -1,0 +1,25 @@
+{
+  "name": "bower",
+  "homepage": "https://github.com/midi9x/tms_51",
+  "description": "tms 51",
+  "main": "",
+  "keywords": [
+    "tms51"
+  ],
+  "authors": [
+    "midi9x"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.6.1",
+    "jquery": "^2.2.3"
+  }
+}
