@@ -4,79 +4,136 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-
-    <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
+    <title> @yield('title')</title>
+    <!-- Bootstrap Core CSS -->
+    {{ Html::style('bower_components/bootstrap/dist/css/bootstrap.css') }}
+    {{ Html::style('css/landing-page.css') }}
+    {{ Html::style('css/login-register.css') }}
+    <!-- Custom Fonts -->
+    {{ Html::style('bower_components/font-awesome/css/font-awesome.css') }}
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <meta name="_token" content="{{ csrf_token() }}">
+    <script>
+        //get baseURL website
+        var baseURL = {!! json_encode(url('/')) !!};
+    </script>
 </head>
-<body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
-                </a>
+                <a class="navbar-brand"  href=""> TMS 51</a>
             </div>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                @if (!Auth::guest())
+
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Dropdown menu <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#"><i class="fa fa-globe fa-fw"></i>  Menu </a>
+                            </li>
+
+                            <li>
+                                <a href="#"><i class="fa fa-globe fa-fw"></i>  Menu </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="" title="">Menu</a>
+                    </li>
                 </ul>
 
-                <!-- Right Side Of Navbar -->
+                @endif
+
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+
+                    <li>
+                        <a href="#" title="" id="register" data-toggle="modal">  {{ trans('settings.register') }} </a>
+                    </li>
+
+                    <li>
+                        <a href="#" title="" id="login" data-toggle="modal"> {{ trans('settings.login') }} </a>
+                    </li>
+
                     @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
-                        </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <img alt="{{ Auth::user()->name  }}" src="{{ Auth::user()->avatar }}" width="20" class="avatar" height="20"> <i class="fa fa-caret-down"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a>{{ trans('settings.signed') }} <span class="bold">{{ Auth::user()->name }} </span>
+                                </a> 
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ url('user') . '/' . Auth::user()->id }}"><i class="fa fa-user fa-fw"></i> {{ trans('settings.yourprofile') }} </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('logout') }}"><i class="fa fa-sign-out fa-fw"></i> {{ trans('settings.logout') }}</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+
                     @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
 
+                </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <div class="top-gap"></div>
     @yield('content')
 
-    <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <!-- Footer -->
+    <footer>
+        <div class="container center">
+            <div class="row ">
+                <div class="col-lg-12">
+                    <ul class="list-inline center">
+                        <li>
+                            {{ trans('settings.language') }}: 
+                        </li>
+                        <li>
+                            <a href="{{ route('lang', 'en') }}">{{ trans('settings.english') }}</a>
+                        </li>
+
+                        <li class="footer-menu-divider">&sdot;</li>
+
+                        <li>
+                            <a href="{{ route('lang', 'vi') }}">{{ trans('settings.vietnamese') }}</a>
+                        </li>                        
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    {{ HTML::script('bower_components/jquery/dist/jquery.js') }}
+    <!-- Bootstrap Core JavaScript -->
+    {{ HTML::script('bower_components/bootstrap/dist/js/bootstrap.js') }}
+    <!-- Login and Register JavaScript -->
+    {{ HTML::script('js/login-register.js') }}
+    
 </body>
 </html>

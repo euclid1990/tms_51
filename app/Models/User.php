@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Hash;
+
 class User extends Authenticatable
 {
     const ROLE_TRAINEE = 1;
@@ -15,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'role',
+        'name', 'email', 'password', 'avatar', 'role', 'facebook_id', 'google_id', 'github_id'
     ];
 
     /**
@@ -59,6 +61,16 @@ class User extends Authenticatable
     public function isSupervisor()
     {
         return $this->role == self::ROLE_SUPERVISOR;
+    }
+
+    public function setPassWordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        return ($value) ? $value : asset('images/no_image_user.png');
     }
 
 }

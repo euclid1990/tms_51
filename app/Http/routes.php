@@ -10,11 +10,32 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::group(['middleware' => 'web'], function() {
+    Route::get('{lang}', ['as' => 'lang', 'uses' => 'HomeController@changeLanguage'])->where([
+        'lang' => 'en', 
+        'lang' => 'vi'
+    ]);
 
-Route::get('/', function () {
-    return view('welcome');
+    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+    
+    Route::post('login', ['as' => 'login', 'uses' => 'UserController@login']);
+
+    Route::post('register', ['as' => 'register', 'uses' => 'UserController@register']);
+    
+    Route::get('logout', ['as' => 'logout', 'uses' => 'UserController@logout']);
+    
+    Route::get('login/{social}', ['as' => 'login.{social}', 'uses' => 'UserController@redirectToProvider']);
+    Route::get('login/{social}/callback', [
+        'as' => 'login.{social}.callback', 
+        'uses' => 'UserController@handleProviderCallback'
+        ]);
+
+    Route::get('/test', function() {
+        return view('common.user');
+    });
+
 });
 
-Route::auth();
+Route::group(['middleware' => 'auth'], function() {
 
-Route::get('/home', 'HomeController@index');
+});
