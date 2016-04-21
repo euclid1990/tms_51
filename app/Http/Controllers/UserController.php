@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Services\FileUploadProcessor;
 use Request;
 use Auth;
 use Response;
@@ -12,9 +14,17 @@ use Validator;
 use App\Models\User;
 use Hash;
 use Socialite;
+use Session;
 
 class UserController extends Controller
 {
+    protected $fileUpload;
+    
+    public function __construct(FileUploadProcessor $fileUpload)
+    {
+        $this->fileUpload = $fileUpload;
+    }
+
     public function login(LoginRequest $request)
     {
         if (Request::ajax()) {
@@ -60,6 +70,85 @@ class UserController extends Controller
             Auth::login($authUser);
         }
         return redirect()->route('home');
+    }
+
+    public function index()
+    {
+        //
+    }
+
+    public function create()
+    {
+        //
+    }
+
+    public function store()
+    {
+        //
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('common.user.show', [
+            'user' => $user,
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        //check policies
+        if (Auth::user()->cannot('updateUser', $user)) {
+            return  redirect()
+                    ->route('user.show', $id)
+                    ->with(['flash_message' => trans('not_permission')]);
+        }
+
+        return view('common.user.edit', [
+            'user' => $user,
+        ]);
+    }
+
+    public function update(UpdateUserRequest $request, $id)
+    {
+        try {
+            $userRequest = $request->only(['name', 'email']);
+            //check password
+            if ($request->password) {
+                $userRequest['password'] = $request->password;
+            }
+            //check avatar
+            if ($request->hasFile('avatar') ) {
+                $uploadFile = $this->fileUpload->upload($request->file('avatar'));
+                if ($uploadFile) {
+                    $userRequest['avatar'] = $uploadFile;
+                }
+            }
+
+            $user = User::findOrFail($id);
+            if (Auth::user()->cannot('updateUser', $user)) {
+                return  redirect()
+                        ->route('user.show', $id)
+                        ->with(['flash_message' => trans('not_permission')]);
+            }
+
+            $user->update($userRequest);
+            return  redirect()
+                ->route('user.show', $id)
+                ->with(['flash_message' => trans('update_success')
+            ]);
+            
+        } catch (Exception $ex) {
+            return  redirect()
+                    ->route('user.show', $id)
+                    ->with(['flash_message' => trans('error_exception')]);
+        }
+    }
+
+    public function destroy()
+    {
+        //
     }
 
 }

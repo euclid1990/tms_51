@@ -30,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand"  href=""> TMS 51</a>
+                <a class="navbar-brand"  href="{{ url('/') }}"> TMS 51</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -82,7 +82,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="{{ url('user') . '/' . Auth::user()->id }}"><i class="fa fa-user fa-fw"></i> {{ trans('settings.yourprofile') }} </a>
+                                <a href="{{ url('user') . '/' . Auth::user()->id }}"><i class="fa fa-user fa-fw"></i> {{ trans('settings.profile') }} </a>
                             </li>
                             <li>
                                 <a href="{{ route('logout') }}"><i class="fa fa-sign-out fa-fw"></i> {{ trans('settings.logout') }}</a>
@@ -101,6 +101,8 @@
         <!-- /.container -->
     </nav>
     <div class="top-gap"></div>
+    @include('layouts.messages')
+    @include('layouts.errors')
     @yield('content')
 
     <!-- Footer -->

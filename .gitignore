@@ -12,3 +12,4 @@ storage/
 .env.php
 .env
 public/bower_components
+public/uploads

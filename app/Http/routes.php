@@ -28,14 +28,28 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('login/{social}/callback', [
         'as' => 'login.{social}.callback', 
         'uses' => 'UserController@handleProviderCallback'
-        ]);
+    ]);
 
-    Route::get('/test', function() {
-        return view('common.user');
+    Route::group(['middleware' => ['auth', 'trainee']], function() {
+        Route::resource('user', 'UserController', 
+            [
+                'only'  => [
+                    'index', 
+                    'show', 
+                    'edit', 
+                    'update'
+                ],
+
+                'names' => [
+                    'index' => 'user.index',
+                    'show' => 'user.show',
+                    'edit' => 'user.edit',
+                    'update' => 'user.update',
+                ]
+            ]
+        );
+
     });
 
-});
-
-Route::group(['middleware' => 'auth'], function() {
 
 });
