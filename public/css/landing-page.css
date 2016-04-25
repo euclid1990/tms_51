@@ -198,4 +198,17 @@ p.copyright {
     border: 1px solid transparent;
     border-radius: 4px;
 }
+
+.course {
+    color: red; 
+    font-size: 19px;
 }
+.img-circle {
+    width: 150px;
+    height: 150px;
+} 
+.img-thumb {
+    width: 100px;
+    height: 100px;
+}
+

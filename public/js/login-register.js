@@ -81,7 +81,7 @@ function showRegisterLogin(selector, selectOut, selectIn, footerOut, footerIn) {
             $(footerOut).fadeOut('fast', function() {
                 $(footerIn).fadeIn('fast');
             });
-            if ($('.modal-title').html() == register) {
+            if (selector == '#showlogin') {
                 $('.modal-title').html(login);
                 $('.with').html(loginWith);
             } else {
