@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> @yield('title')</title>
+    <title> @yield('title', trans('settings.title'))</title>
     <!-- Bootstrap Core CSS -->
     {{ Html::style('bower_components/bootstrap/dist/css/bootstrap.css') }}
     {{ Html::style('css/landing-page.css') }}
@@ -36,25 +36,26 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 @if (!Auth::guest())
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="{{ route('home') }}" title="{ trans('settings.home') }}">{{ trans('settings.home') }}</a>
+                        </li>
+                        @if (Auth::user()->isSupervisor())
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">{{ trans('settings.subject') }} <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ route('admin.subject.create') }}"><i class="fa fa-fw fa-plus"></i>  {{ trans('settings.create') }} </a>
+                                    </li>
 
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Dropdown menu <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#"><i class="fa fa-globe fa-fw"></i>  Menu </a>
+                                    <li>
+                                        <a href="{{ route('admin.subject.index') }}"><i class="fa fa-fw fa-bars"></i>  {{ trans('settings.list') }} </a>
+                                    </li>
+                                </ul>
                             </li>
-
-                            <li>
-                                <a href="#"><i class="fa fa-globe fa-fw"></i>  Menu </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="active">
-                        <a href="" title="">Menu</a>
-                    </li>
-                </ul>
-
+                        @endif
+                    </ul>
+                    
                 @endif
 
                 <ul class="nav navbar-nav navbar-right">
@@ -136,6 +137,8 @@
     {{ HTML::script('bower_components/bootstrap/dist/js/bootstrap.js') }}
     <!-- Login and Register JavaScript -->
     {{ HTML::script('js/login-register.js') }}
+    <!-- Custom JavaScript -->
+    @yield('js')
     
 </body>
 </html>

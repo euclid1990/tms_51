@@ -212,3 +212,11 @@ p.copyright {
     height: 100px;
 }
 
+.form-inline {
+    display: inline;
+}
+
+.head-panel {
+    float: right;
+    margin-top: -26px;
+}
