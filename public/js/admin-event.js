@@ -79,6 +79,7 @@ $(function() {
     $(".btnDeleteTask").on('click', function(e) {
         e.preventDefault();
         var check = confirm(confirm_delete);
+        var errorElement = $('.error');
         if (check) {
             var id = $(this).attr("task");
             $.ajax({
@@ -98,6 +99,59 @@ $(function() {
             });
         }
         
+    });
+
+    $(".btnDeleteCourseSubject").on('click', function(e) {
+        e.preventDefault();
+        var check = confirm(confirm_delete);
+        var errorElement = $('.error');
+        if (check) {
+            var id = $(this).attr("course-subject");
+            $.ajax({
+                url: baseURL + "/admin/course-subject/" + id,
+                type: "DELETE",
+                success: function(data) { 
+                    if (data.success) {
+                        $('#course-subject-' + id).remove();
+                    } else {
+                        showError(errorElement, data);
+                    }
+                },
+                error: function(errors) {
+                    showError(errorElement, errors);
+                }
+
+            });
+        }
+        
+    });
+
+    $(".btnAddSubject").on('click', function(e) {
+        e.preventDefault();
+        $form = $("form[name=formAddSubject]");
+        var course_id = $form.find('input[name=course_id]').val();
+        var urlGet = baseURL + "/admin/course/" + course_id + "/edit";
+        var errorElement = $('.error');
+        $.ajax({
+            url: baseURL + "/admin/course-subject",
+            type: "POST",
+            dataType: "JSON",
+            data : $form.serialize(),
+            success: function(data) { 
+                if (data.success) {
+                    $.get(urlGet, function(html) { 
+                        $("html").empty();
+                        $("html").html(html);  
+                    });
+                } else {
+                    showError(errorElement, data);
+                }
+            },
+            error: function(errors) {
+                showError(errorElement, errors);
+            }
+
+        });
     });
 
 });

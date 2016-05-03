@@ -61,7 +61,15 @@ return [
     'close' => 'Đóng',
     'home' => 'Trang chủ',
     'list' => 'Danh sách',
-
-
+    'add_course' => 'Thêm khóa học',
+    'show_course' => 'Show khóa học',
+    'edit_course' => 'Sửa khóa học',
+    'supervisor' => 'Người hướng dẫn',
+    'add_supervisor' => 'Thêm người hướng dẫn',
+    'trainee' => 'Học sinh',
+    'add_trainee' => 'Thêm học sinh ',
+    'empty_data' => 'Không có dữ liệu',
+    'start_course' => 'Bắt đầu khóa học',
+    'finish_course' => 'Kết thúc khóa học',
 
 ];

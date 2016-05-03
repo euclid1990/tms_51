@@ -53,8 +53,8 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'supervisor']], function () {
         Route::resource('subject', 'SubjectController');
+        Route::resource('course', 'CourseController');
+        Route::resource('course-subject', 'CourseSubjectController', ['only' => ['store', 'destroy']]);
         Route::resource('task', 'TaskController', ['only' => ['store', 'update', 'destroy']]);
     });
-
-
 });

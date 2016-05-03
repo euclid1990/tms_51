@@ -44,11 +44,11 @@ class SubjectController extends Controller
             }
             return redirect()
                 ->route('admin.subject.index')
-                ->with(['flash_message' => trans('create_success')]);
+                ->with(['flash_message' => trans('settings.create_success')]);
         } catch (Exception $ex) {
             return redirect()
                 ->route('admin.subject.index')
-                ->with(['flash_message' => trans('error_exception')]);
+                ->with(['flash_message' => trans('settings.error_exception')]);
         }
     }
 
@@ -76,12 +76,12 @@ class SubjectController extends Controller
             $subject->update($subjectRequest);
             return redirect()
                 ->route('admin.subject.index')
-                ->with(['flash_message' => trans('update_success')]);
+                ->with(['flash_message' => trans('settings.update_success')]);
 
         } catch (Exception $ex) {
             return redirect()
                 ->route('admin.subject.index')
-                ->with(['flash_message' => trans('error_exception')]);
+                ->with(['flash_message' => trans('settings.error_exception')]);
         }
     }
 
@@ -93,11 +93,11 @@ class SubjectController extends Controller
             $subject->delete();
             return redirect()
                 ->route('admin.subject.index')
-                ->with(['flash_message' => trans('delete_success')]);
+                ->with(['flash_message' => trans('settings.delete_success')]);
         } catch (Exception $ex) {
             return redirect()
                 ->route('admin.subject.index')
-                ->with(['flash_message' => trans('error_exception')]);
+                ->with(['flash_message' => trans('settings.error_exception')]);
         }
         
     }

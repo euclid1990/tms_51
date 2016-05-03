@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\CourseSubject;
 
 class Course extends Model
 {
@@ -19,12 +20,19 @@ class Course extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'user_course');;
     }
 
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class);
+        return $this->belongsToMany(Subject::class)->wherePivot('deleted_at');
+    }
+
+    public function courseSubject($subject_id)
+    {
+        return CourseSubject::where('course_id', $this->id)
+            ->where('subject_id', $subject_id)
+            ->first();
     }
 
     public function isStart()
