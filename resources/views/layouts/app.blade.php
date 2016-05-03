@@ -11,6 +11,8 @@
     {{ Html::style('css/login-register.css') }}
     <!-- Custom Fonts -->
     {{ Html::style('bower_components/font-awesome/css/font-awesome.css') }}
+    <!-- Custom css -->
+    @yield('css')
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <meta name="_token" content="{{ csrf_token() }}">
     <script>
@@ -37,10 +39,23 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 @if (!Auth::guest())
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li>
                             <a href="{{ route('home') }}" title="{ trans('settings.home') }}">{{ trans('settings.home') }}</a>
                         </li>
                         @if (Auth::user()->isSupervisor())
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">{{ trans('settings.course') }} <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ route('admin.course.create') }}"><i class="fa fa-fw fa-plus"></i>  {{ trans('settings.create') }} </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('admin.course.index') }}"><i class="fa fa-fw fa-bars"></i>  {{ trans('settings.list') }} </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">{{ trans('settings.subject') }} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
@@ -53,6 +68,7 @@
                                     </li>
                                 </ul>
                             </li>
+
                         @endif
                     </ul>
                     

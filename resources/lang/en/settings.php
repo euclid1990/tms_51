@@ -61,5 +61,15 @@ return [
     'close' => 'Close',
     'home' => 'Home',
     'list' => 'List',
+    'add_course' => 'Add course',
+    'show_course' => 'Show course',
+    'edit_course' => 'Edit course',
+    'supervisor' => 'Supervisor',
+    'add_supervisor' => 'Add supervisor',
+    'trainee' => 'Trainee',
+    'add_trainee' => 'Add trainee',
+    'empty_data' => 'Empty data',
+    'start_course' => 'Start_course',
+    'finish_course' => 'Finish course',
 
 ];

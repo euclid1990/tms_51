@@ -102,7 +102,7 @@ class UserController extends Controller
         if (Auth::user()->cannot('updateUser', $user)) {
             return  redirect()
                     ->route('user.show', $id)
-                    ->with(['flash_message' => trans('not_permission')]);
+                    ->with(['flash_message' => trans('settings.not_permission')]);
         }
 
         return view('common.user.edit', [
@@ -130,19 +130,19 @@ class UserController extends Controller
             if (Auth::user()->cannot('updateUser', $user)) {
                 return  redirect()
                         ->route('user.show', $id)
-                        ->with(['flash_message' => trans('not_permission')]);
+                        ->with(['flash_message' => trans('settings.not_permission')]);
             }
 
             $user->update($userRequest);
             return  redirect()
                 ->route('user.show', $id)
-                ->with(['flash_message' => trans('update_success')
+                ->with(['flash_message' => trans('settings.update_success')
             ]);
             
         } catch (Exception $ex) {
             return  redirect()
                     ->route('user.show', $id)
-                    ->with(['flash_message' => trans('error_exception')]);
+                    ->with(['flash_message' => trans('settings.error_exception')]);
         }
     }
 
