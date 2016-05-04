@@ -103,4 +103,30 @@ class CourseController extends Controller
                 ->with(['flash_message' => trans('settings.error_exception')]);
         }
     }
+
+    public function startCourse($id)
+    {   
+        $course = Course::findOrFail($id);
+        $course->update(['status' => Course::COURSE_TRAINING]);
+        $subjects = $course->subjects->pluck('id')->all();
+        $trainees = $course->users()->trainee()->get();
+        if ($trainees) {
+            foreach ($trainees as $trainee) {
+                $trainee->subjects()->attach($subjects);
+            }
+        }
+        return redirect()
+            ->route('admin.course.show', $id)
+            ->with(['flash_message' => trans('settings.update_success')]);
+    }
+    
+    public function finishCourse($id)
+    {
+        $course = Course::findOrFail($id);
+        $course->update(['status' => Course::COURSE_FINISH]);
+        return redirect()
+            ->route('admin.course.show', $id)
+            ->with(['flash_message' => trans('settings.update_success')]);
+    }
+
 }

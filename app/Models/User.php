@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class);
+        return $this->belongsToMany(Subject::class, 'user_subject');
     }
 
     public function tasks()
@@ -71,6 +71,11 @@ class User extends Authenticatable
     public function getAvatarAttribute($value)
     {
         return ($value) ? $value : asset('images/no_image_user.png');
+    }
+
+    public function scopeTrainee($query)
+    {
+        return $query->where('role', self::ROLE_TRAINEE);
     }
 
 }
