@@ -13,6 +13,8 @@ class UserCourse extends Model
 
     use SoftDeletes;
 
+    protected $table ='user_course';
+
     protected $fillable = ['user_id', 'course_id', 'start_date', 'end_date', 'status'];
 
     protected $dates = ['deleted_at'];

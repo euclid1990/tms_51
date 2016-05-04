@@ -71,5 +71,6 @@ return [
     'empty_data' => 'Không có dữ liệu',
     'start_course' => 'Bắt đầu khóa học',
     'finish_course' => 'Kết thúc khóa học',
-
+    'start_date' => 'Ngày bắt đầu',
+    'end_date' => 'Ngày kết thúc',
 ];

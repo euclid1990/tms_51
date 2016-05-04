@@ -9,12 +9,14 @@
                 </div>
                 <div class="col-md-6 col-md-offset-2">
                 @if (!$course->isFinish())
-                    <a title="{{ trans('settings.add_trainee') }}" class="btn btn-success" href="">
+                    <button type="button" data-toggle="modal" data-target="#modalAddTrainee" class="btn btn-success">
                         <i class="fa fa-plus"></i> {{ trans('settings.add_trainee') }}
-                    </a>  
-                    <a title="{{ trans('settings.add_supervisor') }}" class="btn btn-primary" href="">
+                    </button>  
+
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddSupervisor" >
                         <i class="fa fa-plus"></i> {{ trans('settings.add_supervisor') }}
-                    </a>
+                    </button>
+
                     @if ($course->isStart())
                         <a title="{{ trans('settings.start_course') }}" class="btn btn-info" href="">
                             <i class="fa fa-refresh"></i>  
@@ -100,5 +102,84 @@
         </div>
     </div>
 </div>
+<!-- Add trainee modal -->
+<div class="modal fade" id="modalAddTrainee" tabindex="-1" role="dialog" aria-labelledby="modalAddTraineeLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('settings.close') }}"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalAddTraineeLabel"> {{ trans('settings.add_trainee') }}</h4>
+            </div>
+            {{ Form::open([
+                'route' => 'admin.user-course.store', 
+                'name' => 'formAddTrainee', 
+                'method' => 'POST'
+            ]) }}
+            <input type="hidden" name="course_id" value="{{ $course->id }}">
+            <div class="modal-body">
+                <div class="form-group">
+                    {{ Form::label('name', trans('settings.trainee')) }}
+                    {!! Form::select('user_id', $trainee, null,  [
+                        'class' => 'form-control', 
+                    ]) !!}
+                </div>
+                <div class="form-group">
+                    {{ Form::label('start_date', trans('settings.start_date')) }}
+                    {!! Form::date('start_date', null,  [
+                        'class' => 'form-control', 
+                        'required' => 'required'
+                    ]) !!}
+                </div>
+                <div class="form-group">
+                    {{ Form::label('end_date', trans('settings.end_date')) }}
+                    {!! Form::date('end_date', null,  [
+                        'class' => 'form-control', 
+                        'required' => 'required'
+                    ]) !!}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('settings.close') }}</button>
+                {{ Form::submit(trans('settings.create'), [
+                    'class' => 'btn btn-primary'
+                ]) }}
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
+
+<!-- Add supervisor modal -->
+<div class="modal fade" id="modalAddSupervisor" tabindex="-1" role="dialog" aria-labelledby="modalAddSupervisorLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('settings.close') }}"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalAddSupervisorLabel"> {{ trans('settings.add_supervisor') }}</h4>
+            </div>
+            {{ Form::open([
+                'route' => 'admin.user-course.store', 
+                'name' => 'formAddSupervisor', 
+                'method' => 'POST'
+            ]) }}
+            <input type="hidden" name="course_id" value="{{ $course->id }}">
+            <div class="modal-body">
+                <div class="form-group">
+                    {!! Form::select('user_id', $supervisor, null,  [
+                        'class' => 'form-control', 
+                    ]) !!}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('settings.close') }}</button>
+                {{ Form::submit(trans('settings.create'), [
+                    'class' => 'btn btn-primary'
+                ]) }}
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
+
 
 @endsection

@@ -55,6 +55,7 @@ Route::group(['middleware' => 'web'], function() {
         Route::resource('subject', 'SubjectController');
         Route::resource('course', 'CourseController');
         Route::resource('course-subject', 'CourseSubjectController', ['only' => ['store', 'destroy']]);
+        Route::resource('user-course', 'UserCourseController', ['only' => ['store']]);
         Route::resource('task', 'TaskController', ['only' => ['store', 'update', 'destroy']]);
     });
 });
