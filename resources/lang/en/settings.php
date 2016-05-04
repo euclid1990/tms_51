@@ -71,5 +71,7 @@ return [
     'empty_data' => 'Empty data',
     'start_course' => 'Start_course',
     'finish_course' => 'Finish course',
+    'start_date' => 'Start date',
+    'end_date' => 'End date',
 
 ];

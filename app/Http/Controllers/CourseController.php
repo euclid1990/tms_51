@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Subject;
 use App\Models\Course;
+use App\Models\User;
 use App\Http\Requests\AddCourseRequest;
 
 class CourseController extends Controller
@@ -44,14 +45,25 @@ class CourseController extends Controller
     public function show($id)
     {
         $course = Course::findOrFail($id);
+        $userIdInCourse = $course->users->pluck('id')->all();
+        $trainee = User::where('role', User::ROLE_TRAINEE)
+            ->whereNotIn('id', $userIdInCourse)
+            ->pluck('name', 'id')
+            ->all();
+        $supervisor = User::where('role', User::ROLE_SUPERVISOR)
+            ->whereNotIn('id', $userIdInCourse)
+            ->pluck('name', 'id')
+            ->all();
         return view('common.course.show', [
-            'course' => $course
+            'course' => $course,
+            'trainee' => $trainee,
+            'supervisor' => $supervisor,
         ]);
     }
 
     public function edit($id)
     {
-        $allSubject = $subject = Subject::pluck('name', 'id')->all();
+        $allSubject = Subject::pluck('name', 'id')->all();
         $course = Course::findOrFail($id);
         return view('common.course.edit', [
             'course' => $course,
