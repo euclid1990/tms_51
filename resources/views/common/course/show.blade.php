@@ -12,21 +12,21 @@
                     <button type="button" data-toggle="modal" data-target="#modalAddTrainee" class="btn btn-success">
                         <i class="fa fa-plus"></i> {{ trans('settings.add_trainee') }}
                     </button>  
-
                     <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddSupervisor" >
                         <i class="fa fa-plus"></i> {{ trans('settings.add_supervisor') }}
                     </button>
-
-                    @if ($course->isStart())
-                        <a title="{{ trans('settings.start_course') }}" class="btn btn-info" href="">
-                            <i class="fa fa-refresh"></i>  
-                            {{ trans('settings.start_course') }}
-                        </a> 
-                    @else 
-                        <a title="{{ trans('settings.finish_course') }}" class="btn btn-warning" href="">
-                            <i class="fa fa-hourglass-end "></i>  
-                            {{ trans('settings.finish_course') }}
-                        </a>
+                    @if (count($course->users()->trainee()->get()) > 0)
+                        @if ($course->isStart())
+                            <a title="{{ trans('settings.start_course') }}" class="btn btn-info" href="{{ route('startCourse', $course->id) }}">
+                                <i class="fa fa-refresh"></i>  
+                                {{ trans('settings.start_course') }}
+                            </a> 
+                        @else 
+                            <a title="{{ trans('settings.finish_course') }}" class="btn btn-warning" href="{{ route('finishCourse', $course->id) }}">
+                                <i class="fa fa-hourglass-end "></i>  
+                                {{ trans('settings.finish_course') }}
+                            </a>
+                        @endif
                     @endif
                 @endif
                 </div>
