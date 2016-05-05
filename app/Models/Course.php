@@ -49,4 +49,20 @@ class Course extends Model
     {
         return $this->status == self::COURSE_FINISH;
     }
+
+    public function scopeTraining($query)
+    {
+        return $query->where('courses.status', self::COURSE_TRAINING);
+    }
+
+    public function getPivotStatusAttribute($value)
+    {
+        if ($this->pivot->status == UserCourse::USER_COURSE_START) {
+            return '<span class="label label-default">' . trans('settings.start') . '</span>';
+        } elseif ($this->pivot->status == UserCourse::USER_COURSE_TRAINING) {
+            return '<span class="label label-primary">' . trans('settings.training') . '</span>';
+        }
+        return '<span class="label label-danger">' . trans('settings.finish') . '</span>';
+    }
 }
+

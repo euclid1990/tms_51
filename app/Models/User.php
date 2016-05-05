@@ -40,17 +40,18 @@ class User extends Authenticatable
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class, 'user_course')
+            ->withPivot('start_date',  'end_date', 'status');
     }
 
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class, 'user_subject');
+        return $this->belongsToMany(Subject::class, 'user_subject')->withPivot('status');
     }
 
     public function tasks()
     {
-        return $this->belongsToMany(Task::class);
+        return $this->belongsToMany(Task::class, 'user_task')->withPivot('status');
     }
 
     public function isTrainee()
@@ -77,5 +78,4 @@ class User extends Authenticatable
     {
         return $query->where('role', self::ROLE_TRAINEE);
     }
-
 }

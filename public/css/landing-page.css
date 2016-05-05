@@ -220,3 +220,8 @@ p.copyright {
     float: right;
     margin-top: -26px;
 }
+
+.head-status {
+    float: right;
+    margin-top: -5px;
+}

@@ -23,4 +23,13 @@ class Task extends Model
         return $this->belongsTo(Subject::class);
     }
     
+    public function getPivotStatusAttribute($value)
+    {
+        if ($this->pivot->status == UserTask::USER_TASK_START) {
+            return '<span class="label label-default">' . trans('settings.start') . '</span>';
+        } elseif ($this->pivot->status == UserTask::USER_TASK_TRAINING) {
+            return '<span class="label label-primary">' . trans('settings.training') . '</span>';
+        }
+        return '<span class="label label-danger">' . trans('settings.finish') . '</span>';
+    }
 }

@@ -73,5 +73,8 @@ return [
     'finish_course' => 'Finish course',
     'start_date' => 'Start date',
     'end_date' => 'End date',
-
+    'active_course' => 'Active course',
+    'empty_course' => 'Empty course',
+    'empty_activity' => 'Empty activity',
+    'empty_subject' => 'Empty subject',
 ];

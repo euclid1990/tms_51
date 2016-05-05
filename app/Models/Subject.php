@@ -24,7 +24,7 @@ class Subject extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'user_subject')->withPivot('status');;
     }
 
     public function tasks()
@@ -45,6 +45,16 @@ class Subject extends Model
     public function isFinish()
     {
         return $this->status == self::SUBJECT_FINISH;
+    }
+
+    public function getPivotStatusAttribute($value)
+    {
+        if ($this->pivot->status == UserSubject::USER_SUBJECT_START) {
+            return '<span class="label label-default">' . trans('settings.start') . '</span>';
+        } elseif ($this->pivot->status == UserSubject::USER_SUBJECT_TRAINING) {
+            return '<span class="label label-primary">' . trans('settings.training') . '</span>';
+        }
+        return '<span class="label label-danger">' . trans('settings.finish') . '</span>';
     }
     
 }
