@@ -101,4 +101,22 @@ class SubjectController extends Controller
         }
         
     }
+
+    public function startSubject($id)
+    {
+        $subject = Subject::findOrFail($id);
+        $subject->update(['status' => Subject::SUBJECT_TRAINING]);
+        return redirect()
+            ->route('admin.subject.show', $id)
+            ->with(['flash_message' => trans('settings.update_success')]);
+    }
+
+    public function finishSubject($id)
+    {
+        $subject = Subject::findOrFail($id);
+        $subject->update(['status' => Subject::SUBJECT_FINISH]);
+        return redirect()
+            ->route('admin.subject.show', $id)
+            ->with(['flash_message' => trans('settings.update_success')]);
+    }
 }
