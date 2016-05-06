@@ -77,5 +77,7 @@ return [
     'empty_course' => 'Không có bài học nào',
     'empty_activity' => 'Không có hoạt động nào',
     'empty_subject' => 'Không có chủ đề nào',
+    'start_subject' => 'Bắt đầu chủ đề',
+    'finish_subject' => 'Kết thúc chủ đề',
 
 ];

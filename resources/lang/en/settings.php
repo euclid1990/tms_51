@@ -77,4 +77,6 @@ return [
     'empty_course' => 'Empty course',
     'empty_activity' => 'Empty activity',
     'empty_subject' => 'Empty subject',
+    'start_subject' => 'Start subject ',
+    'finish_subject' => 'Finish subject',
 ];

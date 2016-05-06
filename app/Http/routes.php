@@ -59,5 +59,7 @@ Route::group(['middleware' => 'web'], function() {
         Route::resource('task', 'TaskController', ['only' => ['store', 'update', 'destroy']]);
         Route::get('start-course/{id}', ['as' => 'startCourse', 'uses' => 'CourseController@startCourse']);
         Route::get('finish-course/{id}', ['as' => 'finishCourse', 'uses' => 'CourseController@finishCourse']);
+        Route::get('start-subject/{id}', ['as' => 'startSubject', 'uses' => 'SubjectController@startSubject']);
+        Route::get('finish-subject/{id}', ['as' => 'finishSubject', 'uses' => 'SubjectController@finishSubject']);
     });
 });
