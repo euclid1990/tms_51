@@ -225,3 +225,8 @@ p.copyright {
     float: right;
     margin-top: -5px;
 }
+
+.course-status {
+    float: right;
+    margin-top: -3px;
+}

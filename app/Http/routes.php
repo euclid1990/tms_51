@@ -31,23 +31,21 @@ Route::group(['middleware' => 'web'], function() {
     ]);
 
     Route::group(['middleware' => ['auth', 'trainee']], function() {
-        Route::resource('user', 'UserController', 
-            [
-                'only'  => [
-                    'index', 
-                    'show', 
-                    'edit', 
-                    'update'
-                ],
+        Route::resource('user', 'UserController', [
+            'only'  => [
+                'index', 
+                'show', 
+                'edit', 
+                'update'
+            ],
+        ]);
 
-                'names' => [
-                    'index' => 'user.index',
-                    'show' => 'user.show',
-                    'edit' => 'user.edit',
-                    'update' => 'user.update',
-                ]
-            ]
-        );
+        Route::resource('course', 'Trainee\CourseController', [
+            'only'  => [
+                'index', 
+                'show'
+            ],
+        ]);
 
     });
 
