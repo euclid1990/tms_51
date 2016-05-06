@@ -73,4 +73,9 @@ return [
     'finish_course' => 'Kết thúc khóa học',
     'start_date' => 'Ngày bắt đầu',
     'end_date' => 'Ngày kết thúc',
+    'active_course' => 'Bài đang học',
+    'empty_course' => 'Không có bài học nào',
+    'empty_activity' => 'Không có hoạt động nào',
+    'empty_subject' => 'Không có chủ đề nào',
+
 ];

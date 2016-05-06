@@ -90,8 +90,14 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $activity = $user->activities;
+        $course = $user->courses()->training()->first();
+        $subjects = $course ? $course->subjects : '';
         return view('common.user.show', [
             'user' => $user,
+            'activity' => $activity,
+            'course' => $course,
+            'subjects' => $subjects
         ]);
     }
 
