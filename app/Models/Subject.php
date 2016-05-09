@@ -56,5 +56,11 @@ class Subject extends Model
         }
         return '<span class="label label-danger">' . trans('settings.finish') . '</span>';
     }
+
+    public function isPivotStatusFinish()
+    {
+        return $this->pivot->status == UserSubject::USER_SUBJECT_FINISH;
+    }
+
     
 }
