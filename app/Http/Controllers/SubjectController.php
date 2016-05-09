@@ -106,6 +106,13 @@ class SubjectController extends Controller
     {
         $subject = Subject::findOrFail($id);
         $subject->update(['status' => Subject::SUBJECT_TRAINING]);
+        $tasks = $subject->tasks->pluck('id')->all();
+        $trainees = $subject->users()->trainee()->get();
+        if ($trainees) {
+            foreach ($trainees as $trainee) {
+                $trainee->tasks()->attach($tasks);
+            }
+        }
         return redirect()
             ->route('admin.subject.show', $id)
             ->with(['flash_message' => trans('settings.update_success')]);

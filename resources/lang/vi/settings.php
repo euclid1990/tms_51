@@ -1,4 +1,4 @@
-﻿<?php
+﻿﻿<?php
 
 return [
     'title'  => 'Hệ thống quản lý đào tạo Framgia',
@@ -79,5 +79,7 @@ return [
     'empty_subject' => 'Không có chủ đề nào',
     'start_subject' => 'Bắt đầu chủ đề',
     'finish_subject' => 'Kết thúc chủ đề',
+    'finish_task' => 'Bài học đã hoàn thành',
+    'view_task' => 'Xem bài học',
 
 ];

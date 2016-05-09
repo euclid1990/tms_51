@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     @else 
-                        <a href="" title="{{ trans('settings.subject') }}">
+                        <a href="{{ route('subject.show', $subject->id) }}" title="{{ trans('settings.subject') }}">
                             <div class="col-md-3">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">

@@ -32,4 +32,12 @@ class Task extends Model
         }
         return '<span class="label label-danger">' . trans('settings.finish') . '</span>';
     }
+
+    public function getCheckboxStatusAttribute($value)
+    {
+        if ($this->pivot->status == UserTask::USER_TASK_FINISH) {
+            return '<input class="btnTaskFinish" checked disabled type="checkbox" value="' . $this->pivot->id . '" /> ' . trans("settings.finish"); 
+        }
+        return '<input class="btnTaskFinish" type="checkbox" value="' . $this->pivot->id . '" /> ' . trans("settings.finish");
+    }
 }

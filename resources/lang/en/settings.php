@@ -79,4 +79,6 @@ return [
     'empty_subject' => 'Empty subject',
     'start_subject' => 'Start subject ',
     'finish_subject' => 'Finish subject',
+    'finish_task' => 'Task finished',
+    'view_task' => 'View task ',
 ];
