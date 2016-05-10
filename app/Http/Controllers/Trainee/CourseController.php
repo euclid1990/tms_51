@@ -23,10 +23,12 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
         $trainees = $course->users()->trainee()->get();
         $subjects = $course->subjects; 
+        $activities =  $course->activities;
         return view('trainee.course.show', [
             'course' => $course,
             'trainees' => $trainees,
             'subjects' => $subjects,
+            'activities' => $activities,
         ]);
     }
 

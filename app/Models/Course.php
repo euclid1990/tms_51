@@ -13,7 +13,9 @@ class Course extends Model
     const COURSE_FINISH = 3;
 
     use SoftDeletes;
-    
+
+    protected $morphClass = 'course';
+
     protected $fillable = ['name', 'description', 'status'];
 
     protected $dates = ['deleted_at'];
@@ -68,6 +70,11 @@ class Course extends Model
     public function isPivotStatusFinish()
     {
         return $this->pivot->status == UserCourse::USER_COURSE_FINISH;
+    }
+
+    public function activities()
+    {
+        return $this->morphMany(Activity::class, 'actable');
     }
 
 }
