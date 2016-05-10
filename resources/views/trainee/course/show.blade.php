@@ -68,6 +68,18 @@
                 </p>
             </div>
         </div>
+
+        <hr class="small">
+        <h2 class="tagline"> {{ trans('settings.activities') }} </h2>
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="lead">
+                    @foreach ($activities as $activitie) 
+                        <strong>{{ $activitie->user->name }}</strong>: {{ $activitie->description }} - {{ $activitie->created_at->diffForHumans() }}<br />
+                    @endforeach
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 

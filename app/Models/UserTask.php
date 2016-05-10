@@ -33,4 +33,9 @@ class UserTask extends Model
     {
         return $this->status == self::USER_TASK_FINISH;
     }
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
 }

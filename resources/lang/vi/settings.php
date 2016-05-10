@@ -79,7 +79,7 @@ return [
     'empty_subject' => 'Không có chủ đề nào',
     'start_subject' => 'Bắt đầu chủ đề',
     'finish_subject' => 'Kết thúc chủ đề',
-    'finish_task' => 'Bài học đã hoàn thành',
+    'finish_task' => 'Hoàn thành bài học',
     'view_task' => 'Xem bài học',
 
 ];

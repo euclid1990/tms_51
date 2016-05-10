@@ -13,6 +13,8 @@ class Subject extends Model
 
     use SoftDeletes;
 
+    protected $morphClass = 'subject';
+
     protected $fillable = ['name', 'description', 'status'];
     
     protected $dates = ['deleted_at'];
@@ -62,5 +64,9 @@ class Subject extends Model
         return $this->pivot->status == UserSubject::USER_SUBJECT_FINISH;
     }
 
+    public function activities()
+    {
+        return $this->morphMany(Activity::class, 'actable');
+    }
     
 }
