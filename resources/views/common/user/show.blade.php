@@ -117,6 +117,7 @@
                                             {{ $item->description }} - ({{ $item->created_at->diffForHumans() }})
                                         </li>
                                     @endforeach
+                                    {!! $activity->links() !!}
                                 @else 
                                     <li class="list-group-item">
                                         {{ trans('settings.empty_activity') }}

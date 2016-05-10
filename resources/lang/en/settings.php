@@ -81,4 +81,5 @@ return [
     'finish_subject' => 'Finish subject',
     'finish_task' => 'Finish task ',
     'view_task' => 'View task ',
+    'avatar' => 'Avatar',
 ];

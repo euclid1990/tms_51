@@ -230,3 +230,10 @@ p.copyright {
     float: right;
     margin-top: -3px;
 }
+.img-user {
+    width: 45px;
+    height: 45px;
+}
+.user-action {
+    width: 120px;
+}

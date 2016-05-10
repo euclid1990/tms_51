@@ -81,5 +81,6 @@ return [
     'finish_subject' => 'Kết thúc chủ đề',
     'finish_task' => 'Hoàn thành bài học',
     'view_task' => 'Xem bài học',
+    'avatar' => 'Ảnh đại diện',
 
 ];
