@@ -13,6 +13,8 @@ class UserTask extends Model
 
     use SoftDeletes;
 
+    protected $table = 'user_task';
+    
     protected $fillable = ['user_id', 'task_id', 'status'];
     
     protected $dates = ['deleted_at'];

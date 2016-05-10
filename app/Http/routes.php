@@ -47,6 +47,10 @@ Route::group(['middleware' => 'web'], function() {
             ],
         ]);
 
+        Route::resource('subject', 'Trainee\SubjectController', ['only'  => ['show']]);
+
+        Route::resource('user-task', 'Trainee\UserTaskController', ['only'  => ['update']]);
+
     });
 
     Route::group(['prefix'=>'admin', 'middleware' => ['auth', 'supervisor']], function () {
@@ -59,5 +63,6 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('finish-course/{id}', ['as' => 'finishCourse', 'uses' => 'CourseController@finishCourse']);
         Route::get('start-subject/{id}', ['as' => 'startSubject', 'uses' => 'SubjectController@startSubject']);
         Route::get('finish-subject/{id}', ['as' => 'finishSubject', 'uses' => 'SubjectController@finishSubject']);
+
     });
 });
