@@ -40,4 +40,9 @@ class Task extends Model
         }
         return '<input class="btnTaskFinish" type="checkbox" value="' . $this->pivot->id . '" /> ' . trans("settings.finish");
     }
+
+    public function isPivotStatusFinish()
+    {
+        return $this->pivot->status == UserTask::USER_TASK_FINISH;
+    }
 }
