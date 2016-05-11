@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\AddUserRequest;
 use App\Services\FileUploadProcessor;
 use Request;
 use Auth;
@@ -74,23 +75,42 @@ class UserController extends Controller
 
     public function index()
     {
-        //
+        $users = User::trainee()->paginate(ENV('USER_PER_PAGE'));
+        return view('common.user.index', [
+            'users' => $users,
+        ]);
     }
 
     public function create()
     {
-        //
+        return view('common.user.add');
     }
 
-    public function store()
+    public function store(AddUserRequest $request)
     {
-        //
+        try {
+            $userRequest = $request->only(['name', 'email', 'password']);
+            if ($request->hasFile('avatar')) {
+                $uploadFile = $this->fileUpload->upload($request->file('avatar'));
+                if ($uploadFile) {
+                    $userRequest['avatar'] = $uploadFile;
+                }
+            }
+            $user = User::create($userRequest);
+            $flashMessage = trans('settings.create_success');
+            
+        } catch (Exception $ex) {
+            $flashMessage = trans('settings.error_exception');
+        }
+        return redirect()
+            ->route('admin.user.index')
+            ->with(['flash_message' => $flashMessage]);
     }
 
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $activity = $user->activities;
+        $activity = $user->activities()->paginate(ENV('ACTIVITY_PER_PAGE'));
         $course = $user->courses()->training()->first();
         $subjects = $course ? $course->subjects : '';
         return view('common.user.show', [
@@ -134,27 +154,34 @@ class UserController extends Controller
 
             $user = User::findOrFail($id);
             if (Auth::user()->cannot('updateUser', $user)) {
-                return  redirect()
+                return redirect()
                         ->route('user.show', $id)
                         ->with(['flash_message' => trans('settings.not_permission')]);
             }
 
             $user->update($userRequest);
-            return  redirect()
-                ->route('user.show', $id)
-                ->with(['flash_message' => trans('settings.update_success')
-            ]);
-            
+            $flashMessage = trans('settings.update_success');
         } catch (Exception $ex) {
-            return  redirect()
-                    ->route('user.show', $id)
-                    ->with(['flash_message' => trans('settings.error_exception')]);
+            $flashMessage = trans('settings.error_exception');
         }
+        return redirect()
+            ->route('user.show', $id)
+            ->with(['flash_message' => $flashMessage]);
+        
     }
 
-    public function destroy()
+    public function destroy($id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+            $flashMessage = trans('settings.delete_success');
+        } catch (Exception $ex) {
+            $flashMessage = trans('settings.error_exception');
+        }
+        return redirect()
+            ->route('admin.user.index')
+            ->with(['flash_message' => $flashMessage]);
     }
 
 }

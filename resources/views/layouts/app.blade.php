@@ -69,9 +69,27 @@
                                     </li>
                                 </ul>
                             </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">{{ trans('settings.trainee') }} <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ route('admin.user.create') }}"><i class="fa fa-fw fa-plus"></i>  {{ trans('settings.create') }} </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('admin.user.index') }}"><i class="fa fa-fw fa-bars"></i>  {{ trans('settings.list') }} </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                         @else 
                             <li>
-                                <a href="{{ route('course.index') }}" title="{ trans('settings.course') }}">{{ trans('settings.course') }}</a>
+                                <a href="{{ route('course.index') }}" title="{{ trans('settings.course') }}">{{ trans('settings.course') }}</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('user.index') }}" title="{{ trans('settings.trainee') }}">{{ trans('settings.trainee') }}</a>
                             </li>
                         @endif
                     </ul>

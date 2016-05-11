@@ -30,7 +30,7 @@ Route::group(['middleware' => 'web'], function() {
         'uses' => 'UserController@handleProviderCallback'
     ]);
 
-    Route::group(['middleware' => ['auth', 'trainee']], function() {
+    Route::group(['middleware' => 'auth'], function() {
         Route::resource('user', 'UserController', [
             'only'  => [
                 'index', 
@@ -39,7 +39,9 @@ Route::group(['middleware' => 'web'], function() {
                 'update'
             ],
         ]);
-
+    });
+    
+    Route::group(['middleware' => ['auth', 'trainee']], function() {
         Route::resource('course', 'Trainee\CourseController', [
             'only'  => [
                 'index', 
@@ -63,6 +65,12 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('finish-course/{id}', ['as' => 'finishCourse', 'uses' => 'CourseController@finishCourse']);
         Route::get('start-subject/{id}', ['as' => 'startSubject', 'uses' => 'SubjectController@startSubject']);
         Route::get('finish-subject/{id}', ['as' => 'finishSubject', 'uses' => 'SubjectController@finishSubject']);
+        Route::resource('user', 'UserController', ['only'  => [
+            'index', 
+            'create', 
+            'store', 
+            'destroy'
+        ]]);
 
     });
 });
