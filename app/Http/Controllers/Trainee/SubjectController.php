@@ -16,7 +16,7 @@ class SubjectController extends Controller
         $subject = Subject::findOrFail($id);
         $trainees = $subject->users()->trainee()->get();
         $taskInSubject = $subject->tasks->pluck('id')->all();
-        $tasks = Auth::user()->tasks->whereIn('id', $taskInSubject );
+        $tasks = Auth::user()->tasks->whereIn('id', $taskInSubject);
         $activities = $subject->activities;
         return view('trainee.subject.show', [
             'subject' => $subject,

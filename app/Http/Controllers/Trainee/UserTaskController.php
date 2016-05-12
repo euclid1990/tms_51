@@ -16,9 +16,11 @@ class UserTaskController extends Controller
         if (Request::ajax()) {
             $usertask = UserTask::findOrFail($id);
             $usertask->update(['status' => UserTask::USER_TASK_FINISH]);
-            //create activity
             $task = $usertask->task;
             $subject = $task->subject;
+            //finish user_subject if all user_task is finish
+            $subject->finishSubject();
+            //create activity
             $subject->activities()->create(['user_id' => Auth::user()->id, 'description' => trans('settings.finish_task') . ' ' . $task->name]);
             return Response::json(['success' => true]);
         }

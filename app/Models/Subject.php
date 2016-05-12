@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 
 class Subject extends Model
 {
@@ -67,6 +68,21 @@ class Subject extends Model
     public function activities()
     {
         return $this->morphMany(Activity::class, 'actable');
+    }
+
+    public function finishSubject()
+    {
+        $taskInSubject = $this->tasks->pluck('id')->all();
+        $userTasks = Auth::user()->tasks->whereIn('id', $taskInSubject);
+        foreach ($userTasks as $task) {
+            if (!$task->isPivotStatusFinish()) {
+                return;
+            }
+        }
+        Auth::user()->subjects()->updateExistingPivot($this->id, [
+            'status' => UserTask::USER_TASK_FINISH
+        ]);
+        
     }
     
 }
