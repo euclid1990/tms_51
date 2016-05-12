@@ -9,7 +9,7 @@
             <div class="col-lg-12">
             @foreach ($courses as $course)
                 @if ($course->isPivotStatusFinish()) 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
@@ -26,7 +26,7 @@
                     </div>
                 @else 
                     <a href="{{ route('course.show', $course->id) }}" title="{{ trans('settings.course') }}">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">

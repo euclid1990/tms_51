@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App;
-
+use Session;
 class HomeController extends Controller
 {
     /**
@@ -30,8 +30,8 @@ class HomeController extends Controller
 
     public function changeLanguage($lang)
     {
-        App::setLocale($lang);
-        return redirect()->route('home');
+        Session::put('lang', $lang);
+        return redirect()->back();
     }
 
 

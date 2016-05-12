@@ -23,7 +23,7 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
         $trainees = $course->users()->trainee()->get();
         $subjects = $course->subjects; 
-        $activities =  $course->activities;
+        $activities =  $course->activities()->paginate(ENV('ACTIVITY_PER_PAGE'));
         return view('trainee.course.show', [
             'course' => $course,
             'trainees' => $trainees,

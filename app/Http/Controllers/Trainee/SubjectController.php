@@ -17,7 +17,7 @@ class SubjectController extends Controller
         $trainees = $subject->users()->trainee()->get();
         $taskInSubject = $subject->tasks->pluck('id')->all();
         $tasks = Auth::user()->tasks->whereIn('id', $taskInSubject);
-        $activities = $subject->activities;
+        $activities = $subject->activities()->paginate(ENV('ACTIVITY_PER_PAGE'));
         return view('trainee.subject.show', [
             'subject' => $subject,
             'trainees' => $trainees,

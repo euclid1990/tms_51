@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Subject;
 use App\Models\Course;
+use App\Models\UserCourse;
 use App\Models\User;
 use App\Http\Requests\AddCourseRequest;
 
@@ -113,6 +114,8 @@ class CourseController extends Controller
         if ($trainees) {
             foreach ($trainees as $trainee) {
                 $trainee->subjects()->attach($subjects);
+                //update user_course table
+                $trainee->courses()->updateExistingPivot($id, ['status' => UserCourse::USER_COURSE_TRAINING]);
             }
         }
         return redirect()
@@ -124,6 +127,13 @@ class CourseController extends Controller
     {
         $course = Course::findOrFail($id);
         $course->update(['status' => Course::COURSE_FINISH]);
+        //update user_course table
+        $trainees = $course->users()->trainee()->get();
+        if ($trainees) {
+            foreach ($trainees as $trainee) {
+                $trainee->courses()->updateExistingPivot($id, ['status' => UserCourse::USER_COURSE_FINISH]);
+            }
+        }
         return redirect()
             ->route('admin.course.show', $id)
             ->with(['flash_message' => trans('settings.update_success')]);

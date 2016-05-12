@@ -62,6 +62,18 @@
                 </div>
             </div>
         </div>
+        <div class="row"> 
+            <div class="form-group">
+                <div class="col-sm-3">
+                    {{ Form::label('task', trans('settings.task')) }}
+                </div>
+                <div class="col-sm-9">
+                    @foreach ($subject->tasks as $task)
+                        {{ $task->name }}, 
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

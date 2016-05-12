@@ -92,10 +92,24 @@
                 <div class="col-sm-9">
                 @foreach ($course->users as $user)
                     @if ($user->isTrainee()) 
-                        <a href="{{ route('user.show', $user->id) }}" title="{{ trans('settings.profile') }}">
+                        <a href="{{ route('user.show', $user->id) }}" title="{{ $user->name }}">
                             {{ $user->name }}
                         </a>,  
                     @endif
+                @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-sm-3">
+                    {{ Form::label('subject', trans('settings.subject')) }}
+                </div>
+                <div class="col-sm-9">
+                @foreach ($course->subjects as $subject)
+                    <a href="{{ route('admin.subject.show', $subject->id) }}" title="{{ $subject->name }}">
+                        {{ $subject->name }}
+                    </a>,  
                 @endforeach
                 </div>
             </div>
@@ -180,6 +194,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection
