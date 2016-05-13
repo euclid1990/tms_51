@@ -58,9 +58,12 @@
         <h2 class="tagline">{{ trans('settings.activities') }} </h2>
         <div class="row">
             <p class="lead">
-                @foreach ($activities as $activitie) 
-                    <strong>{{ $activitie->user->name }}</strong>: {{ $activitie->description }} - {{ $activitie->created_at->diffForHumans() }}<br />
+                @foreach ($activities as $activity) 
+                    <strong>{{ $activity->user->name }}</strong>: {{ $activity->description }} - {{ $activity->created_at->diffForHumans() }}<br />
                 @endforeach
+                <div class="text-center">
+                    {{ $activities->links() }}
+                </div>
             </p>
         </div>
     </div>

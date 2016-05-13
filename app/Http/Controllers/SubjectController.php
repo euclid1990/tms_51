@@ -7,6 +7,7 @@ use App\Http\Requests\AddSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use App\Http\Requests;
 use App\Models\Subject;
+use App\Models\UserSubject;
 use App\Models\Task;
 use App\Services\TaskProcessor;
 
@@ -111,6 +112,8 @@ class SubjectController extends Controller
         if ($trainees) {
             foreach ($trainees as $trainee) {
                 $trainee->tasks()->attach($tasks);
+                //update user_subject
+                $trainee->subjects()->updateExistingPivot($id, ['status' => UserSubject::USER_SUBJECT_TRAINING]);
             }
         }
         return redirect()
@@ -122,6 +125,13 @@ class SubjectController extends Controller
     {
         $subject = Subject::findOrFail($id);
         $subject->update(['status' => Subject::SUBJECT_FINISH]);
+        //update user_subject
+        $trainees = $subject->users()->trainee()->get();
+        if ($trainees) {
+            foreach ($trainees as $trainee) {
+                $trainee->subjects()->updateExistingPivot($id, ['status' => UserSubject::USER_SUBJECT_FINISH]);
+            }
+        }
         return redirect()
             ->route('admin.subject.show', $id)
             ->with(['flash_message' => trans('settings.update_success')]);

@@ -61,13 +61,16 @@ class UserController extends Controller
     {
         $user  = Socialite::driver($social)->user();
         if ($user) {
-            $authUser = User::firstOrCreate([
-                'name' => $user->getName(),
-                'email' => $user->getEmail(),
-                $social . '_id' => $user->getId(),
-                'avatar' => $user->getAvatar(),
-                'role' => User::ROLE_TRAINEE
-            ]);
+            $authUser = User::where('email', $user->getEmail())->first();
+            if (!$authUser) {
+                $authUser = User::create([
+                    'name' => $user->getName(),
+                    'email' => $user->getEmail(),
+                    $social . '_id' => $user->getId(),
+                    'avatar' => $user->getAvatar(),
+                    'role' => User::ROLE_TRAINEE
+                ]);
+            }
             Auth::login($authUser);
         }
         return redirect()->route('home');

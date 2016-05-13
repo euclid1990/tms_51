@@ -9,7 +9,7 @@
             <div class="col-lg-12 text-center">
                 @foreach ($subjects as $subject)
                     @if (auth()->user()->subjects->find($subject->id)->isPivotStatusFinish()) 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
@@ -26,7 +26,7 @@
                         </div>
                     @else 
                         <a href="{{ route('subject.show', $subject->id) }}" title="{{ trans('settings.subject') }}">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">
@@ -74,9 +74,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <p class="lead">
-                    @foreach ($activities as $activitie) 
-                        <strong>{{ $activitie->user->name }}</strong>: {{ $activitie->description }} - {{ $activitie->created_at->diffForHumans() }}<br />
+                    @foreach ($activities as $activity) 
+                        <strong>{{ $activity->user->name }}</strong>: {{ $activity->description }} - {{ $activity->created_at->diffForHumans() }}<br />
                     @endforeach
+                    <div class="text-center">
+                        {{ $activities->links() }}
+                    </div>
                 </p>
             </div>
         </div>

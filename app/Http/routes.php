@@ -11,10 +11,7 @@
 |
 */
 Route::group(['middleware' => 'web'], function() {
-    Route::get('{lang}', ['as' => 'lang', 'uses' => 'HomeController@changeLanguage'])->where([
-        'lang' => 'en', 
-        'lang' => 'vi'
-    ]);
+    Route::get('language/{lang}', ['as' => 'lang', 'uses' => 'HomeController@changeLanguage']);
 
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
     
